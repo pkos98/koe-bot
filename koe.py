@@ -45,6 +45,11 @@ def empty_message(bot, update):
         if update.message.left_chat_member.username != BOTNAME:
             return goodbye(bot, update)
 
+def membership(bot, update):
+    bot.send_message(chat_id=update.message.chat_id, parse_mode=telegram.ParseMode.MARKDOWN, 
+    text=("You want to join us? No problem, just fill out the registration form:  \n" +
+    "https://goo.gl/forms/7Jwvm6istokrlOpx2"))
+
 def where(bot, update):
     update.message.reply_text('Vivo en el despacho 120 de la Facultad de Informatica de la Universidad Complutense de Madrid ☺')
 
@@ -64,6 +69,8 @@ def main():
     dispatcher.add_handler(help_handler)
     where_handler = CommandHandler('where', where)
     dispatcher.add_handler(where_handler)
+    membership_handler = CommandHandler('membership', where)
+    dispatcher.add_handler(membership_handler)
     empty_handler = MessageHandler(Filters.status_update, empty_message)
     dispatcher.add_handler(empty_handler)
 
